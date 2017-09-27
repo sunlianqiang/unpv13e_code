@@ -36,6 +36,10 @@ static char rcsid[] = "$Id: inet_ntop.c,v 1.1.1.1 2002/11/14 03:33:35 fenner Exp
 #define	AF_INET6	AF_MAX+1	/* just to let this compile */
 #endif
 
+#ifndef socklen_t
+#define socklen_t uint32_t
+#endif
+
 /*
  * WARNING: Don't even consider trying to compile this on a system where
  * sizeof(int) < 4.  sizeof(int) > 4 is fine; all the world's not a VAX.
@@ -57,7 +61,7 @@ inet_ntop(af, src, dst, size)
 	int af;
 	const void *src;
 	char *dst;
-	size_t size;
+	socklen_t size;
 {
 	switch (af) {
 	case AF_INET:
