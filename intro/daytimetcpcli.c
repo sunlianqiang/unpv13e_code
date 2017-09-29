@@ -22,6 +22,15 @@ main(int argc, char **argv)
 	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
 		err_sys("connect error");
 
+    struct sockaddr ss;
+    socklen_t len;
+    len = sizeof(ss);
+    if (getsockname(sockfd, (SA*) &ss, &len) < 0)
+        return -1;
+
+    printf("local socket name:%s\n",
+            sock_ntop(&ss, sizeof(ss)));
+
     int count = 0;
 	while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
         count++;
